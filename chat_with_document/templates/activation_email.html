@@ -1,0 +1,19 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Hi {{ user.username }}!</h2>
+        <p>
+            Thanks for registering on our platform. Please click the button below to verify your email address:
+        </p>
+        <a href="{{ activation_url }}" class="btn-primary">Verify Email</a>
+    </div>
+</body>
+</html>

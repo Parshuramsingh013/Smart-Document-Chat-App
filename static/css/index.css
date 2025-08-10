@@ -1,0 +1,1334 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", Arial, sans-serif;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Header */
+.header {
+    background: white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.logo {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo i {
+    margin-right: 10px;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-icon {
+    width: 45px; /* Increased size */
+    height: 45px; /* Increased size */
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile-icon i {
+    font-size: 2rem; /* Increased size */
+    color: #333;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 70px; /* Adjusted to match the increased size */
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-content a i {
+    margin-right: 10px;
+    width: 16px;
+}
+
+/* Show the dropdown when active */
+.dropdown-content.show {
+    display: block;
+}
+
+/* Main content */
+.main-container {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    height: auto;
+    width: auto;
+}
+
+/* Sidebar */
+.sidebar {
+    background: white;
+    border-radius: 12px;
+    width: 300px;
+    padding: 1.5rem;
+    height: calc(100vh - 99px);
+    background-color: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    font-size: 20px;
+    color: #495057;
+    border-bottom: 1px solid #e9ecef;
+    flex-shrink: 0;
+    margin: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#new-chat-btn {
+    margin: 15px 20px;
+    flex-shrink: 0;
+}
+
+/* Preloader button styles */
+#new-chat-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #666666;
+}
+
+.document-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 20px;
+    overflow-x: hidden;
+}
+
+.document-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 5px; /* Prevent content from touching scrollbar */
+}
+
+.document-list li.active, 
+.document-list li {
+    background: var(--background-light);
+    border-radius: 8px;
+    margin-bottom: 10px; /* Adjusted margin to ensure consistent spacing */
+    padding: 10px;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50px; /* Adjusted height */
+    width: 100%; /* Adjusted width to fit container */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+}
+
+/* ...existing code... */
+
+.document-list li:first{
+    margin-bottom: -8px;
+}
+.document-list li {
+    background: var(--background-light);
+    border-radius: 8px;
+    margin-bottom: 10px; /* Consistent spacing for all items */
+    padding: 10px;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.document-list li.new-document-item {
+    margin-bottom: 10px; /* Ensure consistent spacing for dynamically added items */
+}
+
+.document-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+/* ...existing code... */
+
+/* .document-list li.new-document-item,
+.document-item.new-document-item {
+    margin-top: 17.5px;
+    margin-bottom: 10px; Ensure consistent spacing for dynamically added items
+} */
+
+.document-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.document-list li.active {
+    background-color: #e8f0fe;
+    border-left: 5px solid #6384f9;
+}
+
+
+.document-list strong {
+    display: block;
+    /* margin-bottom: 5px; */
+    word-break: break-all;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+
+.document-list span {
+    display: block;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.document-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin-top: auto; /* Push buttons to the bottom */
+}
+
+.document-controls button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.document-controls .chat-btn {
+    background-color: #0eac33;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Update the chat button styles */
+.chat-btn {
+    white-space: nowrap;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem 5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #28a745; /* Change this to your desired color */
+    border: none;
+    cursor: pointer;
+}
+
+/* Content area */
+.content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+}
+
+.content-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content-title {
+    display: flex;
+    align-items: center;
+}
+
+.content-title i {
+    margin-right: 10px;
+    color: #ffffff;
+}
+
+.active-document {
+    font-weight: bold;
+    color: #000000;
+    margin-left: 15px;
+}
+
+/* Upload section */
+
+.upload-section {
+    background: white;
+    border: 2px dashed #6384f9; /* Moved dashed border to outer container */
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 5rem auto;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Increased width */
+    width: 90%;
+    text-align: center;
+    position: relative;
+    height: auto;
+    min-height: 250px; /* Reduced height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upload-section h3 {
+    font-size: 1.4rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.file-upload {
+    display: flex;
+    gap: 10px;
+}
+
+.upload-btn {
+    white-space: nowrap;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem 5rem;
+    border-radius: 6px;
+    font-weight: 800;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    gap: 0.5rem;
+    background-color: #6384f9;
+    border: none;
+    cursor: pointer;
+}
+
+/* Chat area */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.messages {
+    padding: 1rem;
+    gap: 1rem;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    border-radius: 8px;
+    margin: 20px 0;
+    max-height: 500px;
+}
+
+.message {
+    max-width: 95%;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.3s ease-out;
+    display: flex;
+}
+
+.user-message {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 12px 12px 0 12px;
+    padding: 1rem;
+    margin-left: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+}
+
+.bot-message {
+    background: var(--background-light);
+    border-radius: 12px 12px 12px 0;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    max-width: 80%;
+    margin-left: 30px;
+}
+
+.input-container {
+    background: var(--background-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+    gap: 0.75rem;
+    border: 1px solid var(--border-color);
+    display: flex;
+    margin: 20px 0;
+}
+
+.input-container input {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    flex: 1;
+}
+
+.chat-container {
+    background: linear-gradient(135deg, #597ffa, #b070f8);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    padding: 1.5rem;
+    display: none;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Footer styling */
+.welcome-footer {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    height:65px;
+    color: #000000;
+}
+
+/* Alert styles */
+.alert {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.messages-container {
+    margin-bottom: 15px;
+}
+
+/* Add these styles to your existing style section */
+.chat-area.active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.chat-container.active {
+    display: flex !important;
+    flex-direction: column;
+    height: 100%;
+}
+
+#chat-section {
+    flex: 1;
+    display: none;
+}
+
+#chat-section.active {
+    display: flex;
+}
+
+#chat-section .chat-container {
+    display: none;
+    flex-direction: column;
+    height: 470px;
+    padding: 20px;
+}
+
+
+.document-list li.active .chat-btn {
+    background-color: #2b57e9;
+}
+
+/* Modern Color Palette */
+:root {
+    --primary-color: #4f46e5;
+    --primary-light: #818cf8;
+    --secondary-color: #1e293b;
+    --background-light: #f8fafc;
+    --background-dark: #0f172a;
+    --success-color: #22c55e;
+    --error-color: #ef4444;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #64748b;
+}
+
+
+.logo:hover {
+    transform: translateY(-1px);
+}
+
+
+.input-container input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+/* Buttons Enhancement */
+.chat-btn {
+    white-space: nowrap;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem 5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+.chat-btn:hover, .upload-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+
+.upload-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-section input[type="file"] {
+    display: none;
+}
+
+.upload-section label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.upload-section label img {
+    width: 100px;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.upload-section label span {
+    font-size: 1.2rem;
+    color: #4f46e5;
+    margin-bottom: 1rem;
+}
+
+.upload-section .upload-btn {
+    background-color: #4f46e5;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-section .upload-btn:hover {
+    background-color: #818cf8;
+    transform: translateY(-1px);
+}
+
+.preloader {
+    display: none;
+    margin-top: 1rem;
+}
+
+.success-message {
+    display: none;
+    margin-top: 1rem;
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.status-completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-processing {
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.status-error {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.back-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+
+/* Add styles for the modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Add styles for the modal preloader and success message */
+.modal-preloader {
+    display: none;
+    margin-top: 1rem;
+}
+
+.modal-success-message {
+    display: none;
+    margin-top: 1rem;
+    color: #22c55e;
+    font-weight: bold;
+}
+
+/* ...existing code... */
+.document-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.document-name {
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+}
+
+.delete-btn i {
+    font-size: 1.2rem;
+    margin-top: 4.5px;
+    margin-bottom: 9px;
+}
+/* ...existing code... */
+
+/* Add these styles to your existing CSS */
+.upload-section label span {
+    font-size: 1.2rem;
+    color: #4f46e5;
+    margin-bottom: 1rem;
+    word-break: break-all;
+    max-width: 100%;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.upload-section label span.has-file {
+    color: #22c55e;
+}
+
+.upload-section input[type="file"] {
+    display: none;
+}
+
+.upload-section label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem 0rem 0rem 0rem;
+}
+
+
+.upload-section label:hover img {
+    transform: scale(1.05);
+}
+
+
+/* profile.css */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(90vh - 90px); /* Leaves space for header and footer */
+    box-sizing: border-box;
+}
+
+.profile-card {
+    background-color: #ffffff;
+    width: 400px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-name {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+}
+
+.profile-body {
+    margin-top: 10px;
+}
+
+.profile-body p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #6e8efb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #5a76d9;
+}
+
+.btn-secondary {
+    background-color: #6e8efb;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #e5e5e5;
+}
+
+/* Update Username */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+}
+
+
+
+.profile-section {
+    background-color: #ffffff;
+    width: 420px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-section h1 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #333;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-field label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-field input:focus {
+    outline: none;
+    border-color: #6e8efb;
+    box-shadow: 0 0 6px rgba(110, 142, 251, 0.5);
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a76d9, #946bc1);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+}
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a76d9, #946bc1);
+}
+
+.btn-secondary:hover {
+    background-color: #e5e5e5;
+}
+
+@media (max-width: 480px) {
+    .profile-section {
+        width: 90%;
+    }
+}
+
+/* Add these styles to the end of your index.css file */
+
+/* Custom Alert Styles */
+.theme-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.theme-alert-box {
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 320px;
+    max-width: 90%;
+    padding: 20px;
+    text-align: center;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.theme-alert-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #6e8efb;
+}
+
+.theme-alert-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.theme-alert-message {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.theme-alert-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.theme-alert-button {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.theme-alert-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(110, 142, 251, 0.4);
+}
+
+.theme-alert-button-secondary {
+    background: transparent;
+    color: #6e8efb;
+    border: 1px solid #6e8efb;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.theme-alert-button-secondary:hover {
+    background: rgba(110, 142, 251, 0.1);
+}
+
+.theme-alert-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.theme-alert-show .theme-alert-box {
+    transform: translateY(0);
+}
+
+/* Add to your existing CSS */
+.drag-drop-area {
+    border: 2px dashed #6384f9;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgba(99, 132, 249, 0.03);
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.drag-drop-area:hover, .drag-drop-area.dragover {
+    background-color: rgba(110, 142, 251, 0.1);
+    border-color: #a777e3;
+}
+
+.drag-drop-area img {
+    width: 80px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.drag-text {
+    font-size: 1.2rem;
+    color: #6e8efb;
+    margin-bottom: 5px;
+}
+
+.drag-text-sub {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.drag-drop-area input[type="file"] {
+    display: none;
+}
+
+/* ...existing code... */
+.drag-drop-area {
+    border: 2px dashed #6384f9;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgba(99, 132, 249, 0.03);
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.drag-drop-area.dragover {
+    background-color: rgba(99, 132, 249, 0.08);
+    border-color: #4f46e5;
+    transform: translateY(-2px);
+}
+
+.drag-drop-area img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.drag-drop-area span {
+    font-size: 1.1rem;
+    color: #4f46e5;
+    margin-bottom: 0.5rem;
+    display: block;
+    line-height: 1.5;
+}
+
+.drag-drop-area:hover img {
+    transform: scale(1.08);
+}
+
+.drag-drop-area input[type="file"] {
+    display: none;
+}
+
+/* Preloader and Success Message Styles */
+.preloader,
+.success-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    display: none;
+}
+
+.preloader {
+    background-color: rgba(99, 132, 249, 0.1);
+    color: #4f46e5;
+}
+
+.success-message {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.preloader i,
+.success-message i {
+    margin-right: 0.5rem;
+}
+
+
+.upload-section h3 {
+    font-size: 1.4rem;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.drag-drop-area {
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    background-color: rgba(99, 132, 249, 0.03);
+    min-height: 180px; /* Reduced height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem 0;
+}
+
+.drag-drop-area:hover, 
+.drag-drop-area.dragover {
+    background-color: rgba(99, 132, 249, 0.08);
+    transform: translateY(-2px);
+}
+
+.drag-drop-area img {
+    width: 80px; /* Reduced image size */
+    height: 80px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.drag-drop-area span {
+    font-size: 1.1rem;
+    color: #4f46e5;
+    margin-bottom: 0.5rem;
+    display: block;
+    line-height: 1.5;
+}
+
+/* Update success and preloader messages positioning */
+.preloader,
+.success-message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+
+
+/* Custom Alert Styles */
+.theme-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.theme-alert-box {
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 320px;
+    max-width: 90%;
+    padding: 20px;
+    text-align: center;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.theme-alert-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #6e8efb;
+}
+
+.theme-alert-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.theme-alert-message {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.theme-alert-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.theme-alert-button {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.theme-alert-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(110, 142, 251, 0.4);
+}
+
+.theme-alert-button-secondary {
+    background: transparent;
+    color: #6e8efb;
+    border: 1px solid #6e8efb;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.theme-alert-button-secondary:hover {
+    background: rgba(110, 142, 251, 0.1);
+}
+
+.theme-alert-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.theme-alert-show .theme-alert-box {
+    transform: translateY(0);
+}

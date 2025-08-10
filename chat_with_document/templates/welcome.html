@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Smart Document Chat</title>
+    <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="welcome-container">
+        <nav class="welcome-nav">
+            <div class="logo">
+                <a href="{% url 'welcome' %}" class="logo-link">
+                    <i class="fas fa-robot"></i>
+                    <span>Smart Doc Chat</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="hero-section">
+            <div class="hero-content">
+                <h1>Chat with Your Documents</h1>
+                <p class="hero-description">
+                    Transform the way you interact with your documents. Upload PDFs and engage in 
+                    intelligent conversations about their content using advanced AI technology.
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>PDF Support</h3>
+                        <p>Upload and analyze any PDF document</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-comments"></i>
+                        <h3>Interactive Chat</h3>
+                        <p>Natural conversation with your documents</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI Powered</h3>
+                        <p>Advanced AI for accurate responses</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure</h3>
+                        <p>Your documents are safe with us</p>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="{% url 'register' %}" class="btn btn-primary">Get Started</a>
+                    <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+                </div>
+            </div>
+        </main>
+
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

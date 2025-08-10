@@ -1,0 +1,14 @@
+django
+psycopg2
+langchain_groq
+langchain
+langchain_community
+langchain_huggingface
+langchain_text_splitters
+langchain_chroma
+langchain_core
+pytz
+yml
+pypdf
+pdfminer.six
+dotenv

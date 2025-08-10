@@ -1,0 +1,147 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chat With Documents{% endblock %}</title>
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    {% include 'header.html' %}
+
+    <!-- Main content -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- Sidebar - ccument History Section -->
+            <aside class="sidebar">
+                <h3 class="sidebar-header">Document History</h3>
+                <button id="new-chat-btn" class="upload-btn">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+                <ul class="document-list">
+                    {% if documents %}
+                    {% for doc in documents %}
+                    <li data-document-id="{{ doc.id }}">
+                        <div class="document-info">
+                            <strong class="document-name" 
+                                    data-document-id="{{ doc.id }}" 
+                                    data-document-name="{{ doc.file.name|clean_document_name }}">
+                                {{ doc.file.name|clean_document_name }}
+                            </strong>
+                            <form action="{% url 'delete_document' doc.id %}" method="POST" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                        <li class="no-documents-message">
+                            <p>No documents uploaded yet.</p>
+                        </li>
+                    {% endif %}
+                </ul>
+            </aside>
+
+            <!-- Content area - Dynamic Section (Upload/Chat) -->
+            <main class="content-area">
+                <div class="content-header">
+                    <div class="content-title">
+                        <i class="fas fa-file-alt" id="section-icon"></i>
+                        <h2 id="section-title">Document Upload</h2>
+                    </div>
+                    <div>
+                        <span class="active-document" id="active-document"></span>
+                    </div>
+                </div>
+
+                <!-- Upload section - Initially visible -->
+                <section class="upload-section" id="upload-section">
+                    <h3>Upload Document</h3>
+                    <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data" id="upload-form">
+                        {% csrf_token %}
+                        <div class="drag-drop-area" id="drag-drop-area">
+                            <img src="{% static 'images/upload-file.png' %}" alt="Upload Icon">
+                            <span id="file-name-display">Drag and drop your PDF file here</span>
+                            <span style="font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem;">or click to browse</span>
+                            <input type="file" id="file-upload" name="file" accept=".pdf">
+                        </div>
+                    </form>
+                    <div class="preloader">
+                        <i class="fas fa-spinner fa-spin"></i> Uploading your document...
+                    </div>
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i> Document uploaded successfully!
+                    </div>
+                </section>
+
+                <!-- Chat section - Initially hidden -->
+                <section class="chat-area" id="chat-section">
+                    <div class="chat-header">
+                        <button id="back-to-upload" class="back-btn">
+                            <i class="fas fa-arrow-left"></i> Back to Upload
+                        </button>
+                    </div>
+                    <div class="chat-container">
+                        <div id="chat-messages" class="messages">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                        <div class="input-container">
+                            {% csrf_token %}
+                            <input type="text" id="user-input" placeholder="Type your message..." />
+                            <button id="send-btn" class="chat-btn">Send</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Add this modal for uploading a new document -->
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <section class="upload-section">
+                <h3>Upload Document</h3>
+                <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data" id="modal-upload-form">
+                    {% csrf_token %}
+                    <label for="modal-file-upload">
+                        <img src="{% static 'images/upload-file.png' %}" alt="Upload Icon">
+                        <span id="modal-file-name-display">Drag and drop your PDF file here</span> <!-- Added an ID for better JS handling -->
+                    </label>
+                    <input type="file" id="modal-file-upload" name="file" style="display: none;"> <!-- Ensure input is hidden -->
+                    <button type="submit" class="upload-btn">Upload PDF</button>
+                </form>
+                <div class="modal-preloader">
+                    <i class="fas fa-spinner fa-spin"></i> Uploading...
+                </div>
+                <div class="modal-success-message">
+                    <i class="fas fa-check-circle"></i> Document uploaded successfully!
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{% static 'js/index.js' %}"> 
+    </script>
+
+    <!-- Add this before closing body tag -->
+    <div id="themeAlert" class="theme-alert-overlay">
+        <div class="theme-alert-box">
+            <div class="theme-alert-icon" id="alertIcon">ℹ️</div>
+            <div class="theme-alert-title" id="alertTitle">Alert Title</div>
+            <div class="theme-alert-message" id="alertMessage">Alert message goes here</div>
+            <div class="theme-alert-buttons" id="alertButtons">
+                <button class="theme-alert-button" id="alertButton">OK</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

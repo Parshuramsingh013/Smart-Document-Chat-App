@@ -1,0 +1,119 @@
+<!-- chat.html (Modified) -->
+
+<div class="chat-container">
+    <h2>Chat with Document</h2>
+    
+    <!-- Messages Container -->
+    <div id="chat-messages" class="messages"></div>
+
+    <!-- CSRF Token -->
+    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+
+    <!-- Input and Send Button -->
+    <div class="input-container">
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const chatBox = document.getElementById("chat-messages");
+        const inputField = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-btn");
+        const sessionId = "{{ chat_session.id }}";
+        const historyUrl = `/chat-history/${sessionId}/`;
+        const chatUrl = `/chat/${sessionId}/`;
+        const csrfToken = document.getElementById("csrf_token").value;
+
+        // ✅ Load Chat History
+        fetch(historyUrl)
+            .then(response => response.json())
+            .then(data => {
+                data.messages.forEach(msg => {
+                    let messageClass = msg.sender === "User" ? "user-message" : "bot-message";
+                    let alignment = msg.sender === "User" ? "flex-end" : "flex-start";
+                    chatBox.innerHTML += `<div class="message" style="justify-content: ${alignment};">
+                        <div class="${messageClass}"><strong>${msg.sender}:</strong> ${msg.text}</div>
+                    </div>`;
+                });
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => console.error("Error loading chat history:", error));
+
+        // ✅ Function to Send Message
+        function sendMessage() {
+            const message = inputField.value.trim();
+            if (!message) return;
+
+            // Append User Message
+            chatBox.innerHTML += `<div class="message" style="justify-content: flex-end;">
+                <div class="user-message"><strong>User:</strong> ${message}</div>
+            </div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Send to Backend
+            fetch(chatUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let formattedResponse = data.bot_response
+                    .replace(/\n/g, "<br>") // Convert newlines to <br>
+                    .replace(/\*\s/g, "• "); // Convert "* " bullet points into "•"
+
+                chatBox.innerHTML += `<div class="message" style="justify-content: flex-start;">
+                    <div class="bot-message"><strong>Bot:</strong> ${formattedResponse}</div>
+                </div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => {
+                console.error("Chat Response Error:", error);
+                chatBox.innerHTML += `<div class="message" style="justify-content: flex-start;">
+                    <div class="bot-message"><strong>Error:</strong> Unable to get response.</div>
+                </div>`;
+            });
+            
+            inputField.value = "";
+        }
+
+        // ✅ Send Button Click
+        sendButton.addEventListener("click", sendMessage);
+
+        // ✅ Pressing "Enter" to Submit
+        inputField.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevents line break
+                sendMessage();
+            }
+        });
+    });
+</script>
+
+<h3>Chat Section</h3>
+<div id="chat-box">
+    <!-- Chat Messages Will be Loaded Here -->
+</div>
+<input type="text" id="chat-input" placeholder="Ask a question...">
+<button id="send-chat">Send</button>
+
+<script>
+    $("#send-chat").click(function() {
+        var question = $("#chat-input").val();
+        $.ajax({
+            url: "{% url 'ask_question' %}",  // Replace with your Django chat processing URL
+            type: "POST",
+            data: { question: question, csrfmiddlewaretoken: "{{ csrf_token }}" },
+            success: function(response) {
+                $("#chat-box").append("<p>" + response.answer + "</p>");
+                $("#chat-input").val("");
+            }
+        });
+    });
+</script>
+

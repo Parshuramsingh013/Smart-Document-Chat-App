@@ -1,0 +1,24 @@
+{% load static %}
+<header class="header">
+    <a href="{% url 'index' %}" class="logo">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <span>Smart Doc Chat</span>
+        </div>
+    </a>
+    <div class="profile-dropdown">
+        <div class="profile-icon" id="profileButton">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="dropdown-content" id="profileDropdown">
+            <a href="{% url 'update-username' %}">
+                <i class="fas fa-user"></i>
+                Profile
+            </a>
+            <a href="{% url 'logout' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </div>
+</header>

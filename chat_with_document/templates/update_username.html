@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<style>
+    /* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+.modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #6e8efb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #5a7de0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+</style>
+<div class="profile-container">
+    <div class="profile-section">
+        <h1>Update Username</h1>
+        <form id="updateUsernameForm" method="post">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" value="{{ user.email }}" readonly class="readonly-field">
+            </div>
+            <div class="form-field">
+                <label for="current_username">Current Username:</label>
+                <input type="text" id="current_username" value="{{ user.username }}" readonly class="readonly-field">
+            </div>
+            <div class="form-field">
+                <label for="new_username">New Username:</label>
+                <input type="text" id="new_username" name="new_username" required>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{% url 'change_password' %}" class="btn btn-secondary">Change Password</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Alert Box -->
+<div id="customAlert" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" id="closeModal">✅</span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalMessage"></p>
+        <button id="modalConfirmButton" class="btn btn-primary">OK</button>
+    </div>
+</div>
+
+<script>
+document.getElementById('updateUsernameForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showCustomAlert('Success', data.message, () => {
+                window.location.href = "{% url 'index' %}";
+            });
+        } else {
+            showCustomAlert('Error', data.message);
+        }
+    })
+    .catch(error => {
+        showCustomAlert('Error', 'An error occurred while updating username.');
+    });
+});
+
+function showCustomAlert(title, message, onConfirm = null) {
+    const modal = document.getElementById('customAlert');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalConfirmButton = document.getElementById('modalConfirmButton');
+
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+
+    modal.style.display = 'block';
+
+    modalConfirmButton.onclick = function () {
+        modal.style.display = 'none';
+        if (typeof onConfirm === 'function') onConfirm();
+    };
+
+    document.getElementById('closeModal').onclick = function () {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+}
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% comment %} {% extends "base.html" %} {% endcomment %}
+{% block content %}
+
+{% if documents %}
+<ul>
+    {% for doc in documents %}
+        <li>
+            <strong>{{ doc.file.name }}</strong>  
+            <span>
+                {% if doc.status == "completed" %}
+                    Ready for Chat 
+                    <a href="{% url 'start_chat' doc.id %}">Chat with this document</a>
+                {% elif doc.status == "processing" %}
+                    ⏳ Processing...
+                {% else %}
+                    Failed to Process
+                {% endif %}
+            </span>
+            <form action="{% url 'delete_document' doc.id %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No documents uploaded yet.</p>
+{% endif %}
+
+{% endblock %}
